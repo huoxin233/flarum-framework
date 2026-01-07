@@ -5,6 +5,7 @@
 * [Tags] Defer policy if min primary & secondary tags 0 (https://github.com/flarum/framework/pull/4277)
 * Don't see developer tokens if not within the first 20 results (https://github.com/flarum/framework/pull/4264)
 * Restore `xdebug.max_nesting_level` after less compilation (https://github.com/flarum/framework/pull/4262)
+* [Suspend] Build missing js typings (https://github.com/flarum/framework/pull/4337)
 ### Changed
 * Update scheduler link (https://github.com/flarum/framework/pull/4278)
 * Allow to disable slidable on `DiscussionListItem` (https://github.com/flarum/framework/pull/4302)
