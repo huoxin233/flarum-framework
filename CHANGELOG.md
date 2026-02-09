@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.8.13](https://github.com/flarum/framework/compare/v1.8.12...v1.8.13)
+### Changed
+* Add PHP 8.5 to reusable workflows, build JS on PHP 8.3 (https://github.com/flarum/framework/pull/4339)
+### Added
+* Fire `ApplicationBooted` event after all callbacks have completed (https://github.com/flarum/framework/pull/4358)
+
 ## [v1.8.12](https://github.com/flarum/framework/compare/v1.8.11...v1.8.12)
 ### Fixed
 * [Tags] Defer policy if min primary & secondary tags 0 (https://github.com/flarum/framework/pull/4277)
