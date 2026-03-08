@@ -44,7 +44,7 @@ on:
         description: Versions of databases to test with. Should be array of strings encoded as JSON array
         type: string
         required: false
-        default: '["mysql:5.7", "mysql:8.0.30", "mysql:8.1.0", "mariadb", "sqlite:3", "postgres:10"]'
+        default: '["mysql:5.7", "mysql:8.0.30", "mariadb", "sqlite:3", "postgres:10"]'
 
       php_ini_values:
         description: PHP ini values
@@ -95,9 +95,6 @@ jobs:
           - service: mariadb
             db: MariaDB
             driver: mariadb
-          - service: 'mysql:8.1.0'
-            db: MySQL 8.1
-            driver: mysql
           - service: 'sqlite:3'
             db: SQLite
             driver: sqlite
@@ -105,51 +102,60 @@ jobs:
             db: PostgreSQL 10
             driver: pgsql
 
-          # Include Database prefix tests with only one PHP version.
-          - php: ${{ fromJSON(inputs.php_versions)[0] }}
+          # Include Database prefix tests with only one PHP version (latest).
+          - php: ${{ fromJSON(inputs.php_versions)[3] }}
             service: 'mysql:5.7'
             db: MySQL 5.7
             driver: mysql
             prefix: flarum_
             prefixStr: (prefix)
-          - php: ${{ fromJSON(inputs.php_versions)[0] }}
+          - php: ${{ fromJSON(inputs.php_versions)[3] }}
             service: mariadb
             db: MariaDB
             driver: mariadb
             prefix: flarum_
             prefixStr: (prefix)
-          - php: ${{ fromJSON(inputs.php_versions)[0] }}
+          - php: ${{ fromJSON(inputs.php_versions)[3] }}
             service: 'sqlite:3'
             db: SQLite
             driver: sqlite
             prefix: flarum_
             prefixStr: (prefix)
-          - php: ${{ fromJSON(inputs.php_versions)[0] }}
+          - php: ${{ fromJSON(inputs.php_versions)[3] }}
             service: 'postgres:10'
             db: PostgreSQL 10
             driver: pgsql
             prefix: flarum_
             prefixStr: (prefix)
 
-        # To reduce number of actions, we exclude some PHP versions from running with some DB versions.
+        # To reduce number of actions:
+        # - MySQL 8.0 runs on all PHP versions (primary DB for PHP version coverage)
+        # - All other DBs run on latest PHP only (DB-specific bugs don't depend on PHP version)
+        # - MySQL 5.7 also runs on latest PHP only (floor version coverage)
         exclude:
+          - php: ${{ fromJSON(inputs.php_versions)[0] }}
+            service: 'mysql:5.7'
           - php: ${{ fromJSON(inputs.php_versions)[1] }}
-            service: 'mysql:8.0.30'
+            service: 'mysql:5.7'
+          - php: ${{ fromJSON(inputs.php_versions)[2] }}
+            service: 'mysql:5.7'
           - php: ${{ fromJSON(inputs.php_versions)[0] }}
             service: mariadb
           - php: ${{ fromJSON(inputs.php_versions)[1] }}
             service: mariadb
-          - php: ${{ fromJSON(inputs.php_versions)[0] }}
-            service: 'mysql:8.1.0'
-          - php: ${{ fromJSON(inputs.php_versions)[1] }}
-            service: 'mysql:8.1.0'
+          - php: ${{ fromJSON(inputs.php_versions)[2] }}
+            service: mariadb
           - php: ${{ fromJSON(inputs.php_versions)[0] }}
             service: 'sqlite:3'
           - php: ${{ fromJSON(inputs.php_versions)[1] }}
+            service: 'sqlite:3'
+          - php: ${{ fromJSON(inputs.php_versions)[2] }}
             service: 'sqlite:3'
           - php: ${{ fromJSON(inputs.php_versions)[0] }}
             service: 'postgres:10'
           - php: ${{ fromJSON(inputs.php_versions)[1] }}
+            service: 'postgres:10'
+          - php: ${{ fromJSON(inputs.php_versions)[2] }}
             service: 'postgres:10'
 
     services:
