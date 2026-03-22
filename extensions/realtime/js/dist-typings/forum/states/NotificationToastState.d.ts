@@ -5,7 +5,7 @@ interface ToastEntry {
 }
 /**
  * Manages the queue of realtime notification toasts.
- * Each toast auto-dismisses after DISMISS_AFTER_MS milliseconds.
+ * Each toast auto-dismisses after the configured flarum-realtime.notification-toast-dismiss-after seconds.
  */
 export default class NotificationToastState {
     private toasts;
