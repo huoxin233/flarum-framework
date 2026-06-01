@@ -1,5 +1,60 @@
 # Changelog
 
+## [v2.0.0-rc.2](https://github.com/flarum/framework/compare/v2.0.0-rc.1...v2.0.0-rc.2)
+
+### Added
+
+- (core) per-class queue routing on `AbstractJob` by @imorland [#4656]
+- (core) `QueueFactory::getPausedQueues()` for `illuminate/queue` v13.11+ compatibility by @forumaker [#4673]
+
+### Fixed
+
+- (core) add XSLT polyfill so the forum still boots on browsers without XSLT support by @imorland [#4359]
+- (core) misaligned user badges in posts — positioned relative to the username instead of the avatar by @luceos [#4582]
+- (core) hide the search clear button when collapsed in tablet mode by @huoxin233 [#4594]
+- (core) prevent the search modal from opening when the clear button is clicked by @huoxin233 [#4595]
+- (core) prevent discussion list cache wipe on back-navigation to tag pages by @imorland [#4598]
+- (core) send transactional emails in the recipient's preferred locale by @imorland [#4627]
+- (core) restore `text-overflow: ellipsis` on long button labels by @imorland [#4628]
+- (core) scope the `UserResource` groups relationship to viewable groups by @imorland [#4629]
+- (core) add missing `getHidden()` to the `Log\Context\Repository` stub by @imorland [#4633]
+- (core) avoid duplicate `ModelNotFoundException` logs on orphaned queued jobs by @imorland [#4634]
+- (core) resolve `VersionerInterface` from the container and cache rev-manifest reads by @imorland [#4638]
+- (core) track avatar HiDPI variants on users to remove `srcsetFor()` filesystem calls by @imorland [#4639]
+- (core) resolve the email logo URL via the `flarum-assets` disk by @imorland [#4640]
+- (core) lower the SMTP ping threshold to 20s to survive idle-disconnect from relays by @imorland [#4641]
+- (core) notification dedup query never matching non-null data on MySQL by @imorland [#4645]
+- (core) notification and email duplicates from a queue race in `NotificationSyncer` by @imorland [#4647]
+- (core) `TypeError` in the `Revised` event when post content is `NULL` by @imorland [#4648]
+- (core) prevent `UserSecurityPage` crash when the user loads asynchronously by @datlechin [#4651]
+- (core) send the user slug, not username, for the profile author filter by @imorland [#4655]
+- (core) `TextEditor.onbuild` race against async Mithril redraw by @imorland [#4657]
+- (core) surface event posts in discussion `PATCH` responses and route title changes via `rename()` by @imorland [#4658]
+- (core) harden pgsql search configuration handling by @imorland [#4663]
+- (core) replace the async-CSS dual path with a render-blocking stylesheet to fix FOUC by @imorland [#4664]
+- (core) widen `Extend\SearchDriver` class-string types to `SearcherInterface` by @imorland [#4668]
+- (core) guard `EloquentBuffer` against orphaned/mock models by @imorland [#4669]
+- (core) resolve native tooltip flash, async teardown leaks, and dynamic tooltip text by @huoxin233 [#4674]
+- (core) mobile discussion total post count not updating on reply by @imorland [#4678]
+- (admin) keep the extension danger badge visible on long names by @imorland [#4660]
+- (realtime) reconnect the WebSocket and catch up on missed events after iOS Safari backgrounding by @ekumanov [#4590]
+- (realtime) cast boolean setting correctly by @imorland [#4624]
+- (realtime) order users by `joined_at` in `realtime:info` by @imorland [#4630]
+- (realtime) reconstruct Pusher on iOS reconnect to bypass the `lives:2` budget by @ekumanov [#4654]
+- (realtime) only force-reconnect on iOS `visibilitychange` by @imorland [#4662]
+- (gdpr) harden export download with an audit trail, single-use links, and an active expiry check by @imorland [#4642]
+- (tags) restore subquery for permitted tag IDs (regression from #4502) by @imorland [#4649]
+- (flags) drop literal `'undefined'` from the Inappropriate reason and lazy-load `FlagPostModal` by @imorland [#4659]
+- (nicknames) cast min/max length settings to int before passing to `Schema\Str` by @imorland [#4599]
+
+### Changed
+
+- (tags) drop legacy unused background columns from the tags table by @Abdooo2235 [#4529]
+
+### Performance
+
+- (core) skip MIME detection in `JsDirectoryCompiler` when the file extension already matches by @imorland [#4632]
+
 ## [v2.0.0-rc.1](https://github.com/flarum/framework/compare/v2.0.0-beta.8...v2.0.0-rc.1)
 
 ### Added
