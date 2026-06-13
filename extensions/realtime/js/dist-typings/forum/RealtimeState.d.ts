@@ -1,4 +1,5 @@
 import type { Channel } from 'pusher-js';
+import IndexTypingState from './states/IndexTypingState';
 type ChannelReadyCallback = (channel: Channel) => void;
 type ReconnectCallback = () => void;
 /**
@@ -24,6 +25,12 @@ declare class RealtimeState {
     private discussionStreamEventNames;
     private userChannel;
     private publicChannel;
+    /**
+     * Shared presence state for the discussion-list typing dots, fed by the
+     * `index-typing` channel and read by DiscussionListItem. One instance backs
+     * every list item.
+     */
+    readonly indexTyping: IndexTypingState;
     /**
      * Register event names that should trigger a DiscussionPage stream reload.
      * Called by the Realtime extender on behalf of other extensions.
